@@ -33,6 +33,13 @@ var Ghostie = Class.create({
       ghost.observe('blur', function() { ghost.ghost(); });
 
       // Ensure that Ghosted values don't get submitted
+			ghost.up('form').select('input[type="submit"]').each(function(i) {
+				i.observe('click', function() {
+	        if (ghost.should_be_unghosted()) {
+	          ghost.unghost();
+	        }
+	      });
+			});
       ghost.up('form').observe('submit', function() {
         if (ghost.should_be_unghosted()) {
           ghost.unghost();
